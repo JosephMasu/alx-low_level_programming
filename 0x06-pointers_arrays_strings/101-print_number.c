@@ -1,21 +1,28 @@
 #include "holberton.h"
 
 /**
- * print_number -print number putchar
- * @n:integer
- * Return: void
+ * _abs - returns absolute value of given int
+ * @n: number for which we want to get the absolute value
+ *
+ * Return: absolute value of number n
  */
-void print_number(int n)
+
+int		_abs(int n)
 {
-	unsigned int x = n;
+	return ((n < 0) ? -n : n);
+}
 
+/**
+ * print_number - prints number on the standard output
+ * @n: the number to be printed
+ */
+
+void	print_number(int n)
+{
 	if (n < 0)
-	{
 		_putchar('-');
-		x = -x;
-	}
-	if ((x / 10) > 0)
-		print_number(x / 10);
 
-	_putchar(x % 10 + '0');
+	if (n >= 10 || n <= -10)
+		print_number(_abs(n / 10));
+	_putchar(_abs(n % 10) + '0');
 }
