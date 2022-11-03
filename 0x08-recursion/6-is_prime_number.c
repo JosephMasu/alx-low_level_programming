@@ -1,3 +1,5 @@
+cat > 6-is_prime_number.c
+
 /*                                                                                                                                    
  * File: 6-is_prime_number.c                                                                                                          
  * Auth: sam tech                                                                                                                     
