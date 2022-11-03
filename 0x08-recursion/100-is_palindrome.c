@@ -1,55 +1,29 @@
-#include "main.h"
+#include "holberton.h"
 
 /**
- *_strlen_recursion - returns the length of a string
- * @s: the string
- * Return: int/ length of string
+ * wildcmp - compares two strings and returns 1 if the strings
+ * can be considered identical, otherwise return 0.
+ * @s1: string to compare to
+ * @s2: string with wild character
+ *
+ * Return: On success 1.
+ * On error, -1 is returned, and errno is set appropriately.
  */
-int _strlen_recursion(char *s)
+int wildcmp(char *s1, char *s2)
 {
-	int len = 0;
+	if (*s1 == '\0' && *s2 == '\0')
+		return (1);
 
-	if (*s == '\0')
-	{
-		return (0);
-	}
-	if (*s != '\0')
-	{
-		len++;
-		len += _strlen_recursion(++s);
-		return (len);
-	}
-	return (0);
-}
-/**
-* _compareends - checks for matches at either end of a str
-* @s: the string
-* @begin: the start
-* @end: the end
-* Return: 0 or 1
-*/
-int _compareends(char *s, int begin, int end)
-{
-	if (begin >= end)
-		return (1);
-	if (s[begin] == s[end])
-		return (_compareends(s, (begin + 1), (end - 1)));
-	if (s[begin] == s[end] && begin == end)
-		return (1);
-	return (0);
-}
-/**
- * is_palindrome - checking for palindrome
- * @s: the string
- * Return: 1 if true, 0 if not
- */
-int is_palindrome(char *s)
-{
-	int len;
+	if (*s1 == *s2)
+		return (wildcmp(s1 + 1, s2 + 1));
 
-	len = _strlen_recursion(s);
-	if (len == 0 || len == 1)
-		return (1);
-	else
-		return (_compareends(s, 0, len - 1));
+	if (*s2 == '*')
+	{
+		if (*s2 == '*' && *(s2 + 1) != '\0' && *s1 == '\0')
+			return (0);
+		if (wildcmp(s1, s2 + 1) || wildcmp(s1 + 1, s2))
+			return (1);
+	}
+
+	return (0);
 }
